@@ -8,6 +8,7 @@
 - [x] Tema oscuro por defecto con acento verde lima #c8f135
 - [x] GitHub repo creado: https://github.com/Rafaelbhdata/fitlife
 - [x] Schema Supabase diseñado (migraciones SQL listas)
+- [x] **Migraciones aplicadas en Supabase** (11 tablas + 21 ejercicios)
 - [x] Componentes de layout creados (Sidebar, Header, AppShell)
 - [x] Componentes compartidos creados (CalorieRing, WaterProgress, etc.)
 - [x] Módulo Dashboard implementado (v1)
@@ -20,6 +21,9 @@
 - [x] API routes con Supabase
 - [x] Custom hooks para todos los módulos
 - [x] Build compilando exitosamente
+- [x] Fix: CSS @apply con opacity (color-mix)
+- [x] Fix: base-ui/react asChild → render compatibility
+- [x] Fix: Middleware auth redirect deshabilitado para desarrollo
 - [ ] Deploy en Vercel configurado
 
 ## Últimos cambios
@@ -37,6 +41,10 @@
 | 2026-03-23 | API | Ruta /api/stats para dashboard |
 | 2026-03-23 | API | Fix compatibilidad base-ui/react (asChild → render) |
 | 2026-03-23 | Deploy | vercel.json configurado |
+| 2026-03-23 | Build | Fix errores de build (CSS opacity, unused vars, types) |
+| 2026-03-23 | Auth | Middleware auth redirect deshabilitado para desarrollo |
+| 2026-03-23 | DB | **Migraciones aplicadas via Supabase Management API** |
+| 2026-03-23 | DB | Schema desplegado: 11 tablas, 21 ejercicios, RLS, triggers |
 
 ## Archivos clave
 | Archivo | Propósito |
@@ -133,10 +141,13 @@
 | `habit_logs` | Registro de hábitos | ✅ |
 | `journal_entries` | Journaling | ✅ |
 
-### Para aplicar el schema:
-1. Ir a Supabase Dashboard > SQL Editor
-2. Ejecutar `supabase/migrations/001_initial_schema.sql`
-3. Ejecutar `supabase/migrations/002_seed_exercises.sql`
+### Estado del schema:
+✅ **Ya aplicado** en Supabase proyecto `hjjhseahmuqtjukgfeej`
+- 11 tablas creadas con RLS habilitado
+- 21 ejercicios precargados (Upper A: 5, Lower A: 5, Upper B: 5, Lower B: 6)
+- Triggers para auto-actualizar updated_at
+- Funciones: get_daily_nutrition, get_daily_water, get_habits_completion
+- Trigger on_auth_user_created para crear perfil automáticamente
 
 ## Variables de entorno requeridas
 ```env
@@ -156,11 +167,11 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 7. **Componentes colapsables**: Ejercicios en sesión de workout
 
 ## Próximos pasos
-1. **Agente API**: Crear hooks y funciones para Supabase
-2. **Conectar módulos**: Reemplazar mock data con Supabase
-3. **Agente Deploy**: Configurar Vercel y variables de entorno
-4. **Mejoras**:
-   - Open Food Facts API para buscador de alimentos
+1. **Deploy en Vercel**: Configurar proyecto y variables de entorno
+2. **Autenticación**: Crear página de login/signup con Supabase Auth
+3. **Conectar módulos**: Reemplazar mock data con hooks de Supabase
+4. **Mejoras futuras**:
+   - Open Food Facts API para buscador de alimentos (ya integrado en hook)
    - Export PDF funcional con jsPDF
    - Notificaciones in-app
    - PWA manifest

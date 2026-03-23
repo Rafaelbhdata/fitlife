@@ -4,8 +4,7 @@
 -- Created: 2026-03-23
 -- ============================================
 
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+-- gen_random_uuid() is built into PostgreSQL 13+, no extension needed
 
 -- ============================================
 -- ENUM TYPES
@@ -66,7 +65,7 @@ CREATE POLICY "Users can insert own profile" ON user_profiles
 -- ============================================
 
 CREATE TABLE exercises (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   description TEXT,
   muscle_groups muscle_group[] NOT NULL,
@@ -88,7 +87,7 @@ CREATE TABLE exercises (
 -- ============================================
 
 CREATE TABLE workout_sessions (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   workout_day workout_day NOT NULL,
   date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -112,7 +111,7 @@ CREATE POLICY "Users can manage own workout sessions" ON workout_sessions
 -- ============================================
 
 CREATE TABLE workout_sets (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   session_id UUID NOT NULL REFERENCES workout_sessions(id) ON DELETE CASCADE,
   exercise_id UUID NOT NULL REFERENCES exercises(id),
   set_number INTEGER NOT NULL,
@@ -142,7 +141,7 @@ CREATE POLICY "Users can manage own workout sets" ON workout_sets
 -- ============================================
 
 CREATE TABLE meals (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   date DATE NOT NULL DEFAULT CURRENT_DATE,
   meal_type meal_type NOT NULL,
@@ -161,7 +160,7 @@ CREATE POLICY "Users can manage own meals" ON meals
 -- ============================================
 
 CREATE TABLE food_items (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   meal_id UUID NOT NULL REFERENCES meals(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
   calories NUMERIC(7,2) NOT NULL DEFAULT 0,
@@ -191,7 +190,7 @@ CREATE POLICY "Users can manage own food items" ON food_items
 -- ============================================
 
 CREATE TABLE body_measurements (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   date DATE NOT NULL DEFAULT CURRENT_DATE,
   weight_kg NUMERIC(5,2) NOT NULL,
@@ -215,7 +214,7 @@ CREATE POLICY "Users can manage own measurements" ON body_measurements
 -- ============================================
 
 CREATE TABLE water_logs (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   date DATE NOT NULL DEFAULT CURRENT_DATE,
   amount_ml INTEGER NOT NULL,
@@ -235,7 +234,7 @@ CREATE POLICY "Users can manage own water logs" ON water_logs
 -- ============================================
 
 CREATE TABLE habits (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
   description TEXT,
@@ -257,7 +256,7 @@ CREATE POLICY "Users can manage own habits" ON habits
 -- ============================================
 
 CREATE TABLE habit_logs (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   habit_id UUID NOT NULL REFERENCES habits(id) ON DELETE CASCADE,
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   date DATE NOT NULL DEFAULT CURRENT_DATE,
@@ -280,7 +279,7 @@ CREATE POLICY "Users can manage own habit logs" ON habit_logs
 -- ============================================
 
 CREATE TABLE journal_entries (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
   date DATE NOT NULL DEFAULT CURRENT_DATE,
   content TEXT NOT NULL,
