@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { Progress } from "@/components/ui/progress";
 
 interface MacroBarProps {
   label: string;

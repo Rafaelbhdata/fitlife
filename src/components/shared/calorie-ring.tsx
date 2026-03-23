@@ -35,7 +35,6 @@ export function CalorieRing({
     setMounted(true);
   }, []);
 
-  const remaining = goal - consumed;
   const isOver = consumed > goal;
 
   return (

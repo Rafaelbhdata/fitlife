@@ -13,7 +13,6 @@ import {
   TrendingUp,
   TrendingDown,
   CheckSquare,
-  Scale,
 } from "lucide-react";
 
 // Mock data for weekly report

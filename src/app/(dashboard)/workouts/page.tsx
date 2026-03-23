@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { WORKOUT_DAY_LABELS, WORKOUT_DAY_SHORT, INITIAL_EXERCISES } from "@/lib/constants";
-import { Dumbbell, Clock, ChevronRight, Calendar } from "lucide-react";
+import { ChevronRight, Calendar } from "lucide-react";
 import Link from "next/link";
 
 type WorkoutDay = keyof typeof INITIAL_EXERCISES;

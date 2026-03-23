@@ -5,9 +5,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { WaterProgress } from "@/components/shared";
 import { HYDRATION_GOALS } from "@/lib/constants";
-import { Droplets, Plus, Clock, Trash2 } from "lucide-react";
+import { Droplets, Clock, Trash2 } from "lucide-react";
 import { format } from "date-fns";
-import { es } from "date-fns/locale";
 
 // Mock data
 const mockWaterLogs = [

@@ -1,5 +1,6 @@
 "use client"
 
+import * as React from "react"
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip"
 
 import { cn } from "@/lib/utils"
@@ -17,12 +18,31 @@ function TooltipProvider({
   )
 }
 
-function Tooltip({ ...props }: TooltipPrimitive.Root.Props) {
+type TooltipProps = TooltipPrimitive.Root.Props & {
+  /** @deprecated Use delay on TooltipProvider instead */
+  delayDuration?: number
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function Tooltip({ delayDuration, ...props }: TooltipProps) {
   return <TooltipPrimitive.Root data-slot="tooltip" {...props} />
 }
 
-function TooltipTrigger({ ...props }: TooltipPrimitive.Trigger.Props) {
-  return <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props} />
+interface TooltipTriggerProps extends TooltipPrimitive.Trigger.Props {
+  asChild?: boolean
+}
+
+function TooltipTrigger({ asChild, children, ...props }: TooltipTriggerProps) {
+  if (asChild && React.isValidElement(children)) {
+    return (
+      <TooltipPrimitive.Trigger data-slot="tooltip-trigger" render={children} {...props} />
+    )
+  }
+  return (
+    <TooltipPrimitive.Trigger data-slot="tooltip-trigger" {...props}>
+      {children}
+    </TooltipPrimitive.Trigger>
+  )
 }
 
 function TooltipContent({

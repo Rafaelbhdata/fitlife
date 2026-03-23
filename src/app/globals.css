@@ -67,11 +67,18 @@
   }
 
   .glass {
-    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+    @apply backdrop-blur-xl border;
+    background-color: color-mix(in srgb, var(--card) 80%, transparent);
+    border-color: color-mix(in srgb, var(--border) 50%, transparent);
   }
 
   .glass-hover {
-    @apply hover:bg-card/90 hover:border-lime/20 transition-all duration-300;
+    @apply transition-all duration-300;
+  }
+
+  .glass-hover:hover {
+    background-color: color-mix(in srgb, var(--card) 90%, transparent);
+    border-color: rgba(200, 241, 53, 0.2);
   }
 
   .lime-glow {

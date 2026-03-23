@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CalorieRing, WaterProgress, MacroBar, StatCard, HabitCheckbox } from "@/components/shared";
-import { NUTRITION_GOALS, HYDRATION_GOALS, WORKOUT_DAY_SHORT, WORKOUT_SCHEDULE, DEFAULT_HABITS } from "@/lib/constants";
+import { NUTRITION_GOALS, HYDRATION_GOALS, WORKOUT_DAY_SHORT, WORKOUT_SCHEDULE } from "@/lib/constants";
 import {
   Dumbbell,
   Scale,

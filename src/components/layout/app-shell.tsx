@@ -2,7 +2,6 @@
 
 import { Sidebar } from "./sidebar";
 import { Header } from "./header";
-import { cn } from "@/lib/utils";
 
 interface AppShellProps {
   children: React.ReactNode;

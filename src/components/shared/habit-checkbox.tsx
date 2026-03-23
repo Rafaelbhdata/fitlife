@@ -14,7 +14,6 @@ interface HabitCheckboxProps {
 }
 
 export function HabitCheckbox({
-  id,
   label,
   icon,
   checked,

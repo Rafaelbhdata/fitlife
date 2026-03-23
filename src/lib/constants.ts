@@ -394,3 +394,32 @@ export const DATE_FORMATS = {
   time: "HH:mm",
   iso: "yyyy-MM-dd",
 } as const;
+
+// ============================================
+// Set Feeling (for workout tracking)
+// ============================================
+export const SET_FEELING_EMOJI = {
+  too_heavy: "😅",
+  hard: "😤",
+  perfect: "👌",
+  light: "😊",
+  want_more: "🔥",
+} as const;
+
+export const SET_FEELING_LABELS = {
+  too_heavy: "Muy pesado",
+  hard: "Difícil",
+  perfect: "Perfecto",
+  light: "Ligero",
+  want_more: "Quiero más",
+} as const;
+
+// ============================================
+// Meal Types
+// ============================================
+export const MEAL_TYPE_LABELS = {
+  breakfast: "Desayuno",
+  lunch: "Comida",
+  dinner: "Cena",
+  snack: "Snacks",
+} as const;

@@ -11,7 +11,6 @@ import {
   Droplets,
   CheckSquare,
   FileText,
-  Settings,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
