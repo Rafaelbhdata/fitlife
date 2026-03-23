@@ -17,7 +17,9 @@
 - [x] Módulo Hidratación implementado (v1)
 - [x] Módulo Hábitos & Journaling implementado (v1)
 - [x] Módulo Reportes implementado (v1)
-- [ ] API routes con Supabase
+- [x] API routes con Supabase
+- [x] Custom hooks para todos los módulos
+- [x] Build compilando exitosamente
 - [ ] Deploy en Vercel configurado
 
 ## Últimos cambios
@@ -31,6 +33,10 @@
 | 2026-03-23 | UI | Componentes de layout (Sidebar, Header, AppShell) |
 | 2026-03-23 | UI | Componentes compartidos (CalorieRing, WaterProgress, etc.) |
 | 2026-03-23 | Módulos | Todos los 7 módulos implementados con UI funcional |
+| 2026-03-23 | API | Custom hooks para Supabase (workouts, nutrition, weight, hydration, habits) |
+| 2026-03-23 | API | Ruta /api/stats para dashboard |
+| 2026-03-23 | API | Fix compatibilidad base-ui/react (asChild → render) |
+| 2026-03-23 | Deploy | vercel.json configurado |
 
 ## Archivos clave
 | Archivo | Propósito |
