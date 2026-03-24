@@ -37,14 +37,29 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // For now, we'll allow all routes since this is a personal app
-  // The middleware just refreshes the session but doesn't block access
-  // Enable this to require authentication:
-  // if (!user && request.nextUrl.pathname.startsWith("/dashboard")) {
-  //   const url = request.nextUrl.clone();
-  //   url.pathname = "/login";
-  //   return NextResponse.redirect(url);
-  // }
+  const pathname = request.nextUrl.pathname;
+
+  // Protected routes - require authentication
+  const protectedRoutes = ["/dashboard", "/workouts", "/nutrition", "/weight", "/hydration", "/habits", "/reports"];
+  const isProtectedRoute = protectedRoutes.some(route => pathname.startsWith(route));
+
+  // Auth routes - redirect to dashboard if already logged in
+  const authRoutes = ["/login", "/register"];
+  const isAuthRoute = authRoutes.some(route => pathname.startsWith(route));
+
+  // Redirect to login if accessing protected route without auth
+  if (!user && isProtectedRoute) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/login";
+    return NextResponse.redirect(url);
+  }
+
+  // Redirect to dashboard if accessing auth routes while logged in
+  if (user && isAuthRoute) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/dashboard";
+    return NextResponse.redirect(url);
+  }
 
   return supabaseResponse;
 }

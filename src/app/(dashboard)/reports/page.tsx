@@ -13,6 +13,8 @@ import {
   TrendingUp,
   TrendingDown,
   CheckSquare,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 // Mock data for weekly report
@@ -58,57 +60,66 @@ export default function ReportsPage() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="font-display text-4xl tracking-wide">REPORTES</h1>
-          <p className="text-muted-foreground">
+          <h1 className="font-display text-3xl sm:text-4xl tracking-wide">REPORTES</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">
             Resumen semanal de tu progreso
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" className="border-border">
-            <Calendar className="h-4 w-4 mr-2" />
-            Semana anterior
+          <Button variant="outline" size="sm" className="border-border/50 flex-1 sm:flex-none sm:size-default">
+            <Calendar className="h-4 w-4 sm:mr-2" />
+            <span className="hidden sm:inline">Semana anterior</span>
           </Button>
           <Button
             onClick={handleExportPDF}
-            className="bg-lime text-dark hover:bg-lime-400"
+            size="sm"
+            className="bg-lime text-dark hover:bg-lime/90 flex-1 sm:flex-none sm:size-default"
           >
-            <Download className="h-4 w-4 mr-2" />
-            Exportar PDF
+            <Download className="h-4 w-4 sm:mr-2" />
+            <span className="hidden sm:inline">Exportar PDF</span>
           </Button>
         </div>
       </div>
 
       {/* Week selector */}
       <Card className="glass border-border/50">
-        <CardContent className="p-4">
-          <div className="flex items-center justify-center gap-4">
-            <FileText className="h-5 w-5 text-lime" />
-            <span className="font-display text-xl">{mockWeeklyData.week}</span>
+        <CardContent className="p-3 sm:p-4">
+          <div className="flex items-center justify-between">
+            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+              <ChevronLeft className="h-4 w-4" />
+            </Button>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <FileText className="h-4 w-4 sm:h-5 sm:w-5 text-lime" />
+              <span className="font-display text-base sm:text-xl">{mockWeeklyData.week}</span>
+            </div>
+            <Button variant="ghost" size="icon" className="h-8 w-8 text-muted-foreground hover:text-foreground">
+              <ChevronRight className="h-4 w-4" />
+            </Button>
           </div>
         </CardContent>
       </Card>
 
       {/* Stats Grid */}
-      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
         {/* Workouts */}
         <Card className="glass border-border/50">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-lime/10">
-                <Dumbbell className="h-5 w-5 text-lime" />
+          <CardContent className="p-3 sm:p-4">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-lime/10 flex-shrink-0">
+                <Dumbbell className="h-4 w-4 sm:h-5 sm:w-5 text-lime" />
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Entrenamientos</p>
-                <p className="font-display text-2xl">
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-sm text-muted-foreground truncate">Entrenamientos</p>
+                <p className="font-display text-xl sm:text-2xl">
                   {mockWeeklyData.workouts.completed}/{mockWeeklyData.workouts.total}
                 </p>
               </div>
             </div>
-            <Badge className="bg-green-500/10 text-green-500 border-0">
+            <Badge className="bg-green-500/10 text-green-500 border-0 text-[10px] sm:text-xs">
               100% completado
             </Badge>
           </CardContent>
@@ -116,15 +127,15 @@ export default function ReportsPage() {
 
         {/* Calories */}
         <Card className="glass border-border/50">
-          <CardContent className="p-4">
-            <p className="text-sm text-muted-foreground mb-2">Promedio calorías</p>
+          <CardContent className="p-3 sm:p-4 flex flex-col items-center">
+            <p className="text-[10px] sm:text-sm text-muted-foreground mb-2 self-start">Promedio calorías</p>
             <CalorieRing
               consumed={mockWeeklyData.nutrition.avgCalories}
               goal={NUTRITION_GOALS.calories}
               size="sm"
               showLabel={false}
             />
-            <p className="font-display text-xl text-center mt-2">
+            <p className="font-display text-lg sm:text-xl text-center mt-2">
               {mockWeeklyData.nutrition.avgCalories} kcal
             </p>
           </CardContent>
@@ -132,18 +143,18 @@ export default function ReportsPage() {
 
         {/* Weight Change */}
         <Card className="glass border-border/50">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-green-500/10">
+          <CardContent className="p-3 sm:p-4">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-green-500/10 flex-shrink-0">
                 {mockWeeklyData.weight.change < 0 ? (
-                  <TrendingDown className="h-5 w-5 text-green-500" />
+                  <TrendingDown className="h-4 w-4 sm:h-5 sm:w-5 text-green-500" />
                 ) : (
-                  <TrendingUp className="h-5 w-5 text-red-500" />
+                  <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-red-500" />
                 )}
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Cambio de peso</p>
-                <p className={`font-display text-2xl ${
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-sm text-muted-foreground truncate">Cambio de peso</p>
+                <p className={`font-display text-xl sm:text-2xl ${
                   mockWeeklyData.weight.change < 0 ? "text-green-500" : "text-red-500"
                 }`}>
                   {mockWeeklyData.weight.change > 0 ? "+" : ""}
@@ -151,7 +162,7 @@ export default function ReportsPage() {
                 </p>
               </div>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-[10px] sm:text-sm text-muted-foreground">
               {mockWeeklyData.weight.start} → {mockWeeklyData.weight.end} kg
             </p>
           </CardContent>
@@ -159,19 +170,19 @@ export default function ReportsPage() {
 
         {/* Habits */}
         <Card className="glass border-border/50">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3 mb-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-lime/10">
-                <CheckSquare className="h-5 w-5 text-lime" />
+          <CardContent className="p-3 sm:p-4">
+            <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+              <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-lime/10 flex-shrink-0">
+                <CheckSquare className="h-4 w-4 sm:h-5 sm:w-5 text-lime" />
               </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Hábitos</p>
-                <p className="font-display text-2xl">
+              <div className="min-w-0">
+                <p className="text-[10px] sm:text-sm text-muted-foreground truncate">Hábitos</p>
+                <p className="font-display text-xl sm:text-2xl">
                   {mockWeeklyData.habits.completionRate}%
                 </p>
               </div>
             </div>
-            <Badge className="bg-lime/10 text-lime border-0">
+            <Badge className="bg-lime/10 text-lime border-0 text-[10px] sm:text-xs">
               Buen progreso
             </Badge>
           </CardContent>
@@ -179,27 +190,27 @@ export default function ReportsPage() {
       </div>
 
       {/* Detailed sections */}
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
         {/* Exercise Progress */}
         <Card className="glass border-border/50">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="pb-2 sm:pb-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider">
               Progresión de ejercicios
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-2 sm:space-y-4">
             {mockWeeklyData.workouts.exercises.map((exercise) => (
               <div
                 key={exercise.name}
-                className="flex items-center justify-between p-3 rounded-lg bg-secondary/50"
+                className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-secondary/50 group hover:bg-secondary/70 transition-colors"
               >
-                <div>
-                  <p className="font-medium">{exercise.name}</p>
-                  <p className="text-sm text-muted-foreground">
+                <div className="min-w-0 flex-1">
+                  <p className="font-medium text-sm sm:text-base truncate">{exercise.name}</p>
+                  <p className="text-[10px] sm:text-sm text-muted-foreground">
                     {exercise.startWeight} → {exercise.endWeight} lbs
                   </p>
                 </div>
-                <Badge className="bg-green-500/10 text-green-500 border-0">
+                <Badge className="bg-green-500/10 text-green-500 border-0 text-[10px] sm:text-xs flex-shrink-0 ml-2">
                   +{exercise.change} lbs
                 </Badge>
               </div>
@@ -209,12 +220,12 @@ export default function ReportsPage() {
 
         {/* Macros Average */}
         <Card className="glass border-border/50">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="pb-2 sm:pb-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider">
               Promedio de macros
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3 sm:space-y-4">
             <MacroBar
               label="Proteína"
               current={mockWeeklyData.nutrition.avgProtein}
@@ -238,26 +249,26 @@ export default function ReportsPage() {
 
         {/* Habit Breakdown */}
         <Card className="glass border-border/50 lg:col-span-2">
-          <CardHeader>
-            <CardTitle className="text-sm font-medium text-muted-foreground">
+          <CardHeader className="pb-2 sm:pb-4">
+            <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider">
               Desglose de hábitos (días completados de 7)
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-2 sm:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {mockWeeklyData.habits.byHabit.map((habit) => (
                 <div
                   key={habit.name}
-                  className="flex items-center justify-between p-3 rounded-lg bg-secondary/50"
+                  className="flex items-center justify-between p-2.5 sm:p-3 rounded-xl bg-secondary/50 group hover:bg-secondary/70 transition-colors"
                 >
-                  <span className="text-sm">{habit.name}</span>
-                  <Badge variant="outline" className={
+                  <span className="text-xs sm:text-sm truncate flex-1 min-w-0">{habit.name}</span>
+                  <Badge variant="outline" className={`flex-shrink-0 ml-2 text-[10px] sm:text-xs ${
                     habit.completed >= 6
-                      ? "border-green-500/30 text-green-500"
+                      ? "border-green-500/30 text-green-500 bg-green-500/5"
                       : habit.completed >= 4
-                      ? "border-yellow-500/30 text-yellow-500"
-                      : "border-red-500/30 text-red-500"
-                  }>
+                      ? "border-yellow-500/30 text-yellow-500 bg-yellow-500/5"
+                      : "border-red-500/30 text-red-500 bg-red-500/5"
+                  }`}>
                     {habit.completed}/7
                   </Badge>
                 </div>

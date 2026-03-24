@@ -66,11 +66,11 @@ export function RestTimer({ onComplete, className }: RestTimerProps) {
   };
 
   return (
-    <div className={cn("flex flex-col items-center gap-4", className)}>
+    <div className={cn("flex flex-col items-center gap-3 sm:gap-4", className)}>
       {/* Timer Display */}
-      <div className="relative flex h-32 w-32 items-center justify-center">
+      <div className="relative flex h-24 w-24 sm:h-32 sm:w-32 items-center justify-center">
         {/* Background circle */}
-        <svg className="absolute h-full w-full -rotate-90">
+        <svg className="absolute h-full w-full -rotate-90" viewBox="0 0 128 128">
           <circle
             cx="64"
             cy="64"
@@ -91,12 +91,13 @@ export function RestTimer({ onComplete, className }: RestTimerProps) {
             strokeDasharray={364.42}
             strokeDashoffset={364.42 - (percentage / 100) * 364.42}
             className="transition-[stroke-dashoffset] duration-200"
+            style={{ filter: "drop-shadow(0 0 8px rgba(200, 241, 53, 0.4))" }}
           />
         </svg>
 
         {/* Time display */}
         <span className={cn(
-          "font-display text-4xl",
+          "font-display text-3xl sm:text-4xl tabular-nums",
           timeLeft <= 10 && timeLeft > 0 && "timer-pulse text-lime"
         )}>
           {formatTime(timeLeft)}
@@ -110,31 +111,31 @@ export function RestTimer({ onComplete, className }: RestTimerProps) {
             variant="outline"
             size="icon"
             onClick={handlePause}
-            className="h-12 w-12 rounded-full border-lime/30 hover:bg-lime/10"
+            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border-lime/30 hover:bg-lime/10 active:scale-95 transition-transform"
           >
-            <Pause className="h-5 w-5" />
+            <Pause className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         ) : (
           <Button
             size="icon"
             onClick={handleStart}
-            className="h-12 w-12 rounded-full bg-lime text-dark hover:bg-lime-400"
+            className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-lime text-dark hover:bg-lime/90 active:scale-95 transition-transform"
           >
-            <Play className="h-5 w-5 ml-0.5" />
+            <Play className="h-4 w-4 sm:h-5 sm:w-5 ml-0.5" />
           </Button>
         )}
         <Button
           variant="ghost"
           size="icon"
           onClick={handleReset}
-          className="h-10 w-10 rounded-full"
+          className="h-8 w-8 sm:h-10 sm:w-10 rounded-full active:scale-95 transition-transform"
         >
-          <RotateCcw className="h-4 w-4" />
+          <RotateCcw className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
         </Button>
       </div>
 
       {/* Duration options */}
-      <div className="flex gap-2">
+      <div className="flex gap-1.5 sm:gap-2">
         {REST_TIMER_OPTIONS.map((option) => (
           <Button
             key={option}
@@ -142,8 +143,8 @@ export function RestTimer({ onComplete, className }: RestTimerProps) {
             size="sm"
             onClick={() => handleDurationChange(option)}
             className={cn(
-              "text-xs",
-              duration === option && "bg-lime text-dark hover:bg-lime-400"
+              "text-[10px] sm:text-xs h-7 sm:h-8 px-2 sm:px-3 rounded-lg active:scale-95 transition-transform",
+              duration === option && "bg-lime text-dark hover:bg-lime/90"
             )}
           >
             {option}s

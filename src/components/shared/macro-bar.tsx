@@ -19,6 +19,13 @@ const colorClasses = {
   yellow: "bg-yellow-500",
 };
 
+const glowClasses = {
+  lime: "shadow-[0_0_10px_rgba(200,241,53,0.3)]",
+  red: "shadow-[0_0_10px_rgba(239,68,68,0.3)]",
+  blue: "shadow-[0_0_10px_rgba(59,130,246,0.3)]",
+  yellow: "shadow-[0_0_10px_rgba(234,179,8,0.3)]",
+};
+
 export function MacroBar({
   label,
   current,
@@ -32,27 +39,27 @@ export function MacroBar({
   const isOver = current > goal;
 
   return (
-    <div className={cn("space-y-2", className)}>
-      <div className="flex items-center justify-between text-sm">
+    <div className={cn("space-y-1.5 sm:space-y-2", className)}>
+      <div className="flex items-center justify-between text-xs sm:text-sm">
         <span className="text-muted-foreground">{label}</span>
         <span className={cn(
-          "font-medium",
+          "font-medium tabular-nums",
           isOver ? "text-red-500" : "text-foreground"
         )}>
           {current.toFixed(0)}{unit}
           <span className="text-muted-foreground"> / {goal}{unit}</span>
           {showPercentage && (
-            <span className="text-muted-foreground ml-2">
+            <span className="text-muted-foreground ml-1 sm:ml-2">
               ({percentage.toFixed(0)}%)
             </span>
           )}
         </span>
       </div>
-      <div className="relative h-2 w-full overflow-hidden rounded-full bg-secondary">
+      <div className="relative h-1.5 sm:h-2 w-full overflow-hidden rounded-full bg-secondary">
         <div
           className={cn(
             "h-full rounded-full transition-all duration-500 ease-out",
-            isOver ? "bg-red-500" : colorClasses[color]
+            isOver ? "bg-red-500 shadow-[0_0_10px_rgba(239,68,68,0.3)]" : cn(colorClasses[color], glowClasses[color])
           )}
           style={{ width: `${percentage}%` }}
         />

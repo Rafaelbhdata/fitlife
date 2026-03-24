@@ -13,6 +13,7 @@ import {
   FileText,
   ChevronLeft,
   ChevronRight,
+  Zap,
 } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -67,28 +68,27 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "fixed left-0 top-0 z-40 h-screen border-r border-border bg-card transition-all duration-300",
-        collapsed ? "w-16" : "w-64"
+        "fixed left-0 top-0 z-40 h-screen border-r border-border/50 bg-card/95 backdrop-blur-xl transition-all duration-300 hidden lg:block",
+        collapsed ? "w-[72px]" : "w-64"
       )}
     >
       {/* Logo */}
-      <div className="flex h-16 items-center justify-between border-b border-border px-4">
-        {!collapsed && (
-          <Link href="/dashboard" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-lime">
-              <Dumbbell className="h-5 w-5 text-dark" />
+      <div className="flex h-16 items-center justify-between border-b border-border/50 px-4">
+        {!collapsed ? (
+          <Link href="/dashboard" className="flex items-center gap-3 group">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-lime transition-all duration-300 group-hover:lime-glow-sm">
+              <Zap className="h-5 w-5 text-dark" strokeWidth={2.5} />
             </div>
-            <span className="font-display text-2xl tracking-wide text-foreground">
+            <span className="font-display text-2xl tracking-wider text-foreground">
               FITLIFE
             </span>
           </Link>
-        )}
-        {collapsed && (
+        ) : (
           <Link
             href="/dashboard"
-            className="mx-auto flex h-8 w-8 items-center justify-center rounded-lg bg-lime"
+            className="mx-auto flex h-9 w-9 items-center justify-center rounded-xl bg-lime transition-all duration-300 hover:lime-glow-sm"
           >
-            <Dumbbell className="h-5 w-5 text-dark" />
+            <Zap className="h-5 w-5 text-dark" strokeWidth={2.5} />
           </Link>
         )}
       </div>
@@ -103,20 +103,34 @@ export function Sidebar() {
             <Link
               href={item.href}
               className={cn(
-                "flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
+                "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                 isActive
-                  ? "bg-lime/10 text-lime"
+                  ? "bg-lime/15 text-lime"
                   : "text-muted-foreground hover:bg-secondary hover:text-foreground",
                 collapsed && "justify-center px-2"
               )}
             >
-              <Icon
+              <div
                 className={cn(
-                  "h-5 w-5 flex-shrink-0",
-                  isActive ? "text-lime" : "text-muted-foreground"
+                  "flex h-8 w-8 items-center justify-center rounded-lg transition-all duration-200",
+                  isActive
+                    ? "bg-lime/20"
+                    : "bg-transparent group-hover:bg-secondary"
                 )}
-              />
-              {!collapsed && <span>{item.name}</span>}
+              >
+                <Icon
+                  className={cn(
+                    "h-[18px] w-[18px] flex-shrink-0 transition-colors duration-200",
+                    isActive ? "text-lime" : "text-muted-foreground group-hover:text-foreground"
+                  )}
+                />
+              </div>
+              {!collapsed && (
+                <span className="transition-colors duration-200">{item.name}</span>
+              )}
+              {isActive && !collapsed && (
+                <div className="ml-auto h-1.5 w-1.5 rounded-full bg-lime" />
+              )}
             </Link>
           );
 
@@ -142,7 +156,7 @@ export function Sidebar() {
           size="sm"
           onClick={() => setCollapsed(!collapsed)}
           className={cn(
-            "w-full justify-center text-muted-foreground hover:text-foreground",
+            "w-full justify-center text-muted-foreground hover:text-foreground hover:bg-secondary rounded-xl",
             collapsed && "px-2"
           )}
         >
@@ -151,7 +165,7 @@ export function Sidebar() {
           ) : (
             <>
               <ChevronLeft className="h-4 w-4 mr-2" />
-              <span>Colapsar</span>
+              <span className="text-xs">Colapsar</span>
             </>
           )}
         </Button>
