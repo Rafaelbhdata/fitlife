@@ -76,7 +76,8 @@ export function useAuth() {
     // Listen to auth changes
     const supabase = createClient();
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, _session) => {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      async (event, session) => {
         if (event === "SIGNED_OUT") {
           setState({ user: null, profile: null, loading: false, error: null });
         } else if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
