@@ -27,10 +27,10 @@ export function useDashboardStats() {
           weightResult,
           workoutResult,
         ] = await Promise.all([
-          // Calories from meals
+          // Calories and macros from meals
           supabase
             .from("meals")
-            .select("items:food_items(calories)")
+            .select("items:food_items(calories, protein_g, carbs_g, fat_g)")
             .eq("date", today),
 
           // Water total
@@ -61,13 +61,19 @@ export function useDashboardStats() {
             .single(),
         ]);
 
-        // Calculate calories
+        // Calculate calories and macros
         let totalCalories = 0;
+        let totalProtein = 0;
+        let totalCarbs = 0;
+        let totalFat = 0;
         if (nutritionResult.data) {
           nutritionResult.data.forEach((meal) => {
             if (Array.isArray(meal.items)) {
-              meal.items.forEach((item: { calories?: number }) => {
+              meal.items.forEach((item: { calories?: number; protein_g?: number; carbs_g?: number; fat_g?: number }) => {
                 totalCalories += item.calories || 0;
+                totalProtein += item.protein_g || 0;
+                totalCarbs += item.carbs_g || 0;
+                totalFat += item.fat_g || 0;
               });
             }
           });
@@ -98,6 +104,11 @@ export function useDashboardStats() {
           calories: {
             consumed: totalCalories,
             goal: NUTRITION_GOALS.calories,
+          },
+          macros: {
+            protein_g: totalProtein,
+            carbs_g: totalCarbs,
+            fat_g: totalFat,
           },
           water: {
             consumed_ml: totalWater,

@@ -245,6 +245,11 @@ export interface DashboardStats {
     consumed: number;
     goal: number;
   };
+  macros: {
+    protein_g: number;
+    carbs_g: number;
+    fat_g: number;
+  };
   water: {
     consumed_ml: number;
     goal_ml: number;

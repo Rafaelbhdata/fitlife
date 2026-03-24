@@ -61,7 +61,7 @@ export default function RegisterPage() {
       }
 
       setSuccess(true);
-    } catch (err) {
+    } catch {
       setError("Error al crear cuenta. Intenta de nuevo.");
     } finally {
       setLoading(false);

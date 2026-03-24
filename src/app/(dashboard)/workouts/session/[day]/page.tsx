@@ -222,7 +222,7 @@ export default function WorkoutSessionPage() {
             </p>
             <Button
               onClick={handleStartSession}
-              className="bg-lime text-dark hover:bg-lime-400"
+              className="bg-lime text-dark hover:bg-lime/90"
               size="lg"
             >
               Iniciar sesión
@@ -466,7 +466,7 @@ export default function WorkoutSessionPage() {
 
       {/* Finish Session */}
       {sessionStarted && completedSets > 0 && (
-        <div className="fixed bottom-0 left-0 right-0 p-4 bg-background/80 backdrop-blur-xl border-t border-border">
+        <div className="fixed bottom-0 left-0 right-0 p-4 pb-20 lg:pb-4 bg-background/90 backdrop-blur-xl border-t border-border/50 z-40">
           <div className="max-w-4xl mx-auto flex items-center justify-between">
             <div>
               <p className="font-medium">{completedSets} sets completados</p>
@@ -476,7 +476,7 @@ export default function WorkoutSessionPage() {
             </div>
             <Button
               onClick={handleFinishSession}
-              className="bg-lime text-dark hover:bg-lime-400"
+              className="bg-lime text-dark hover:bg-lime/90"
             >
               <Save className="h-4 w-4 mr-2" />
               Terminar sesión

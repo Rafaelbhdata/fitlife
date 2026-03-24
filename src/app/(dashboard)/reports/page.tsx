@@ -70,14 +70,14 @@ export default function ReportsPage() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="border-border/50 flex-1 sm:flex-none sm:size-default">
+          <Button variant="outline" size="sm" className="border-border/50 flex-1 sm:flex-none sm:h-9 sm:px-4">
             <Calendar className="h-4 w-4 sm:mr-2" />
             <span className="hidden sm:inline">Semana anterior</span>
           </Button>
           <Button
             onClick={handleExportPDF}
             size="sm"
-            className="bg-lime text-dark hover:bg-lime/90 flex-1 sm:flex-none sm:size-default"
+            className="bg-lime text-dark hover:bg-lime/90 flex-1 sm:flex-none sm:h-9 sm:px-4"
           >
             <Download className="h-4 w-4 sm:mr-2" />
             <span className="hidden sm:inline">Exportar PDF</span>

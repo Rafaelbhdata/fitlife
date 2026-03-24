@@ -14,7 +14,6 @@ import { es } from "date-fns/locale";
 
 const workoutDays: WorkoutDay[] = ["upper_a", "lower_a", "upper_b", "lower_b"];
 
-const weekDays = ["Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"];
 const workoutSchedule = [
   { day: "Lun", workout: "upper_a" as WorkoutDay | null },
   { day: "Mar", workout: "lower_a" as WorkoutDay | null },
@@ -27,7 +26,7 @@ const workoutSchedule = [
 
 export default function WorkoutsPage() {
   const { exercises, loading: exercisesLoading, error: exercisesError } = useExercises();
-  const { sessions, loading: historyLoading } = useWorkoutHistory(5);
+  const { sessions } = useWorkoutHistory(5);
 
   // Group exercises by workout day
   const exercisesByDay = workoutDays.reduce((acc, day) => {

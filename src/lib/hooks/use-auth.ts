@@ -76,7 +76,7 @@ export function useAuth() {
     // Listen to auth changes
     const supabase = createClient();
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      async (event, _session) => {
         if (event === "SIGNED_OUT") {
           setState({ user: null, profile: null, loading: false, error: null });
         } else if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {

@@ -131,19 +131,19 @@ export default function DashboardPage() {
             <div className="w-full space-y-3">
               <MacroBar
                 label="Proteína"
-                current={0}
+                current={stats?.macros?.protein_g || 0}
                 goal={NUTRITION_GOALS.protein_max}
                 color="red"
               />
               <MacroBar
                 label="Carbohidratos"
-                current={0}
+                current={stats?.macros?.carbs_g || 0}
                 goal={NUTRITION_GOALS.carbs}
                 color="blue"
               />
               <MacroBar
                 label="Grasas"
-                current={0}
+                current={stats?.macros?.fat_g || 0}
                 goal={NUTRITION_GOALS.fat}
                 color="yellow"
               />

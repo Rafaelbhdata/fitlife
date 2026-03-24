@@ -10,12 +10,12 @@ import { JOURNAL_PROMPTS } from "@/lib/constants";
 import { useHabits, useJournal, useJournalHistory } from "@/lib/hooks/use-habits";
 import { CheckSquare, BookOpen, Flame, Sparkles, ChevronRight, Loader2, AlertCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { format, formatDistanceToNow } from "date-fns";
+import { formatDistanceToNow } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function HabitsPage() {
   const { habits, completedCount, totalCount, completionRate, loading: habitsLoading, error: habitsError, toggleHabit, createDefaultHabits } = useHabits();
-  const { entry, saveEntry, loading: journalLoading } = useJournal();
+  const { entry, saveEntry } = useJournal();
   const { entries: journalHistory, loading: historyLoading } = useJournalHistory(5);
 
   const [journalEntry, setJournalEntry] = useState("");
